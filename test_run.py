@@ -9,7 +9,7 @@ class test_run(unittest.TestCase):
 
 class TestRun(unittest.TestCase):
     '''
-    Our test suite for fiddle-me-this, run.py file
+    Our test suite for riddle-me-this, run.py file
     '''
     
     
