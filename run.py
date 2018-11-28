@@ -7,7 +7,6 @@ import os
 app = Flask(__name__)
 
 usernames = []
-riddles = {} # including answers
 user_answers = {}
 
 
@@ -15,11 +14,17 @@ user_answers = {}
 def index():
     '''Landing page with form to submit username'''
     if request.method == 'POST':
-        usernames.append(request.form['username'])
+        username = request.form['username']
+        if username not in usernames:
+            usernames.append(username)
+            print(usernames)
         return redirect(request.form['username'])
     return render_template('index.html')
 
 
+@app.route('/<username>')
+def user(username):
+    return username
 
 
 
