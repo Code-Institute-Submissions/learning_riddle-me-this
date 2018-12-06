@@ -17,7 +17,6 @@ class TestRun(unittest.TestCase):
         btn_element = "<button>Let's riddle!</button>"
         headers = {'Connection':'close'}
         html_text = requests.get(url, headers=headers).text
-        # Button element in HTML?
         self.assertIn(btn_element, html_text)
 
     # TO BE REVIEWED. should we use index function??
@@ -30,8 +29,27 @@ class TestRun(unittest.TestCase):
         headers = {'Connection':'close'}
         r = requests.get(url + username, headers=headers)
         html_text = r.text
-        # Username in HTML?
         self.assertIn(username, html_text)
     
-
+    
+    def test_add_usernames(self):
+        """
+        Usernames added correctly in temporary variable run.usernames
+        """
+        url = 'https://riddle-me-this-joseppujol.c9users.io/'
+        usernames_test = ['username1', 'username2',]
+        headers = {'user-agent': 'Headless', 
+                   'origin': 'http://riddle-me-this-joseppujol.c9users.io',
+                   'Connection':'close'}
+        cookies = {'c9.live.user.click-through': 'ok'}
+        
+        for user in usernames_test:
+            data = {'username': user}
+            r = requests.post(url, data=data,
+                              headers=headers, 
+                              cookies=cookies)
+        html_text = requests.get(url + 'print_usernames', 
+                                 headers=headers).text
+        usernames_html = [item for item in html_text.split(' ') if item != '']
+        self.assertEqual(usernames_html, usernames_test)
         
