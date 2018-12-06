@@ -12,7 +12,9 @@ user_answers = {}
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    '''Landing page with form to submit username'''
+    """
+    Landing page with form to submit username
+    """
     if request.method == 'POST':
         username = request.form['username']
         if username not in usernames:
