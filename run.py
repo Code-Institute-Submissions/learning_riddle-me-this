@@ -27,6 +27,12 @@ def user(username):
     return username
 
 
+@app.route('/print_usernames')
+def print_usernames():
+    all_users = ''
+    for user in usernames:
+        all_users += user + ' '
+    return all_users
 
 
 
