@@ -57,3 +57,12 @@ class TestRun(unittest.TestCase):
         self.assertEqual(usrnames_html, unique_usrnames)
     
     
+    def test_riddlehtml_get(self):
+        """
+        Renders riddle.html when GET request 
+        """
+        url = 'https://riddle-me-this-joseppujol.c9users.io/riddle'
+        btn_element = "<button>Submit!</button>"
+        headers = {'Connection':'close'}
+        html_txt = requests.get(url, headers=headers).text
+        self.assertIn(btn_element, html_txt)    

@@ -19,7 +19,8 @@ def index():
         username = request.form['username']
         if username not in usernames:
             usernames.append(username)
-        return redirect(request.form['username'])
+            print(username)
+        return redirect('riddle')
     return render_template('index.html')
 
 
@@ -34,6 +35,12 @@ def print_users():
     for user in usernames:
         all_users += user + ' '
     return all_users
+
+
+@app.route('/riddle')
+def render_riddle():
+    return render_template('riddle.html')
+
 
 
 
