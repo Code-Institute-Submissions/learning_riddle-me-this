@@ -1,4 +1,5 @@
 from flask import Flask
+import json
 from flask import redirect
 from flask import render_template
 from flask import request
@@ -41,6 +42,12 @@ def print_users():
 def render_riddle():
     return render_template('riddle.html')
 
+
+def read_riddlesjson():
+    with open('riddles.json', 'r', encoding='utf-8') as f:
+        riddles = json.loads(f.read())
+    return riddles    
+        
 
 
 
