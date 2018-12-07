@@ -38,15 +38,26 @@ def print_users():
     return all_users
 
 
-@app.route('/riddle')
-def render_riddle():
-    return render_template('riddle.html')
-
-
 def read_riddlesjson():
     with open('riddles.json', 'r', encoding='utf-8') as f:
         riddles = json.loads(f.read())
-    return riddles    
+    return riddles   
+
+
+def get_riddle(riddles):
+    if riddles:
+        return riddles.pop(0)
+    else:
+        return 'no_riddles_left'
+
+
+@app.route('/riddle', methods=['GET', 'POST'])
+def render_riddle():
+    
+    return render_template('riddle.html')
+
+
+ 
         
 
 

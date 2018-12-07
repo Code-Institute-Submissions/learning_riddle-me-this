@@ -85,5 +85,18 @@ class TestRun(unittest.TestCase):
                 self.assertEqual(riddle['riddle'], riddles_to_test[0]['riddle'])
             if riddle['riddle_id'] == '10':
                 self.assertEqual(riddle['riddle'], riddles_to_test[1]['riddle'])
+
+
+    def test_yield_riddle(self):
+        """
+        test yeild_riddle function yields riddles
+        """
+        riddles = run.read_riddlesjson()
+        for i in range(0, 5):
+            riddle = run.get_riddle(riddles)
+        self.assertEqual(riddle['riddle_id'], '5')
+        for i in range(0, 5):
+            riddle = run.get_riddle(riddles)
+        self.assertEqual(riddle['riddle_id'], '10')
         
-        
+            
