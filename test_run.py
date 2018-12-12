@@ -17,10 +17,10 @@ class TestRun(unittest.TestCase):
         Renders index.html when GET request 
         """
         url = 'https://riddle-me-this-joseppujol.c9users.io/'
-        btn_element = "</button>"
+        form_id = 'id="username"'
         headers = {'Connection':'close'}
         html_txt = requests.get(url, headers=headers).text
-        self.assertIn(btn_element, html_txt)
+        self.assertIn(form_id, html_txt)
 
 
     def test_indexhtml_post(self):
@@ -61,11 +61,12 @@ class TestRun(unittest.TestCase):
         """
         Renders riddle.html when GET request 
         """
-        url = 'https://riddle-me-this-joseppujol.c9users.io/usr1/1'
-        btn_element = "</button>"
+        url = 'https://riddle-me-this-joseppujol.c9users.io/riddle/'
         headers = {'Connection':'close'}
-        html_txt = requests.get(url, headers=headers).text
-        self.assertIn(btn_element, html_txt)    
+        usr = 'usr1'
+        form_id = 'id="answer"'
+        html_txt = requests.get(url + usr, headers=headers).text
+        self.assertIn(form_id, html_txt)    
 
 
     def test_read_riddlesjson(self):
@@ -93,10 +94,10 @@ class TestRun(unittest.TestCase):
         """
         riddles = run.read_riddlesjson()
         for i in range(0, 5):
-            riddl = run.next_riddle(riddles)
+            riddl, riddl_id = run.next_riddle(riddles)
         self.assertEqual(riddl['riddle_id'], '5')
         for j in range(0, 3):
-            riddl = run.next_riddle(riddles)
+            riddl, riddl_id = run.next_riddle(riddles)
         self.assertEqual(riddl['riddle_id'], '8')
         
             

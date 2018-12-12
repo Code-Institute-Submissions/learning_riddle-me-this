@@ -1,30 +1,27 @@
 from flask import Flask
-import json
 from flask import redirect
 from flask import render_template
 from flask import request
 from flask import url_for
+import json
 import os
 
 app = Flask(__name__)
 
 usernames = []
 user_answers = {}
-riddles = ''
-
+riddles = []
 
 def read_riddlesjson():
     with open('./data/riddles.json', 'r', encoding='utf-8') as f:
-        riddles = json.loads(f.read())
+        riddles = json.load(f)
     return riddles
-riddles = read_riddlesjson()
 
 
 def next_riddle(riddles):
     if riddles:
         riddle = riddles.pop(0)
-        del riddles[0]
-    return riddle
+    return riddle, riddle['riddle_id']
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -42,9 +39,9 @@ def index():
     return render_template('index.html')
 
 
-# @app.route('/<username>')
-# def user(username):
-#     return username
+@app.route('/<username>')
+def user(username):
+    return username
 
 
 @app.route('/print_users')
@@ -55,16 +52,10 @@ def print_users():
     return all_users
 
 
-@app.route('/<username>', methods=['GET', 'POST'])
+@app.route('/riddle/<username>')
 def render_riddle(username):
-    print('\n\nBefore LOCALS render_riddle', sorted(locals().keys()))
-    riddle = next_riddle(riddles)
-    if riddle:
-        print('\n\n LOCALS render_riddle', sorted(locals().keys()))
-        return render_template('riddle.html', riddle=riddle['riddle'])
-    else:
-        riddle = 'End'
-        return riddle
+    
+    return render_template('riddle.html', username=username)
 
 
 if __name__ == '__main__':
