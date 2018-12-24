@@ -84,9 +84,9 @@ def render_riddle(username, riddle_id):
     """
     Display a riddle and a text box to answer it.
     """
-    
-    #riddle, riddle_id = get_riddle()
     print('start render_riddle', riddle_id)
+    
+    if int(riddle_id) > len(riddles): return "You did all riddles"
     
     if request.method == 'POST':
         usr_answer = request.form['answer'].lower()
@@ -99,8 +99,6 @@ def render_riddle(username, riddle_id):
                                     riddle_text=riddles[riddle_id]['question'])
         if is_correct:
             print('start correct render_riddle', riddle_id)
-            #riddle, riddle_id = next_riddle()
-            #print('after calling next_riddle', riddle)
             riddle_id = str(int(riddle_id) + 1)
             return redirect(url_for('render_riddle', 
                                     username=username, 

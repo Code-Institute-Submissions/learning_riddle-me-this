@@ -90,8 +90,27 @@ class TestRun(unittest.TestCase):
             if riddle == '10':
                 self.assertEqual(riddles[riddle]['question'], 
                                  riddles_to_test['10']['question'])
-
-
+    
+    
+    def test_riddles_completed(self):
+        """
+        Message informs users when all riddles are completed 
+        """
+        riddles = run.read_riddlesjson()
+        riddle_id = str(len(riddles) + 1)
+        
+        msg = "You did all riddles"
+        url = 'https://riddle-me-this-joseppujol.c9users.io/riddle'
+        usr = 'usr1'
+        headers = {'user-agent': 'Headless', 
+                   'origin': 'http://riddle-me-this-joseppujol.c9users.io',
+                   'Connection':'close'}
+        cookies = {'c9.live.user.click-through': 'ok'}
+        
+        url_page = url + '/' + usr + '/' + riddle_id
+        html_txt = requests.get(url_page, headers=headers).text
+        self.assertIn(msg, html_txt)
+        
     # def test_next_riddle(self):
     #     """
     #     test get_riddle function yields riddles
