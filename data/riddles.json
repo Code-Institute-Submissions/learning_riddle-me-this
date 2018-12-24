@@ -1,92 +1,56 @@
-[
-  {
-    "riddle_id": "1",
-    "riddle": "What has a face and two hands but no arms or legs?",
-    "answer": "Clock"
-  },
-  {
-    "riddle_id": "2",
-    "riddle": "What type of cheese is made backwards?",
-    "answer": "Edam"
-  },
-  {
-    "riddle_id": "3",
-    "riddle": "Which month has 28 days?",
-    "answer": "All"
-  },
-  {
-    "riddle_id": "4",
-    "riddle": "How many letters are there in the alphabet?",
-    "answer": "Eleven"
-  },
-  {
-    "riddle_id": "5",
-    "riddle": "What is so delicate that saying its name breaks it?",
-    "answer": "Silence"
-  },
-  {
-    "riddle_id": "6",
-    "riddle": "They come out at night without being called, and are lost in the day without being stolen. What are they?",
-    "answer": "Stars"
-  },
-  {
-    "riddle_id": "7",
-    "riddle": "If you threw a White stone into the Red Sea, what would it become?",
-    "answer": "Wet"
-  },
-  {
-    "riddle_id": "8",
-    "riddle": "What invention lets you look right through a wall?",
-    "answer": "A window"
-  },
-  {
-    "riddle_id": "9",
-    "riddle": "What has four legs, but can’t walk?",
-    "answer": "A table"
-  },
-  {
-    "riddle_id": "10",
-    "riddle": "Which word in the dictionary is spelled incorrectly?",
-    "answer": "Incorrectly"
-  },
-  {
-    "riddle_id": "11",
-    "riddle": "Why are teddy bears never hungry?",
-    "answer": "Because they are stuffed"
-  },
-  {
-    "riddle_id": "12",
-    "riddle": "What has many rings, but no fingers?",
-    "answer": "A telephone"
-  },
-  {
-    "riddle_id": "13",
-    "riddle": "What goes through towns and over hills but never moves?",
-    "answer": "A road"
-  },
-  {
-    "riddle_id": "14",
-    "riddle": "If two is company and three is a crowd, what are four and five?",
-    "answer": "Nine"
-  },
-  {
-    "riddle_id": "15",
-    "riddle": "I do not have wings, but I can fly. I don’t have eyes, but I will cry! What am I?",
-    "answer": "A cloud"
-  },
-  {
-    "riddle_id": "16",
-    "riddle": "I do not speak, cannot hear or speak anything, but I will always tell the truth. What am I?",
-    "answer": "A mirror"
-  },
-  {
-    "riddle_id": "17",
-    "riddle": "I have no life, but I can die, what am I?",
-    "answer": "A battery"
-  },
-  {
-    "riddle_id": "18",
-    "riddle": "People buy me to eat, but never eat me. What am I?",
-    "answer": "A plate"
-  }
-]
+{
+  "1": {
+        "question": "What has a face and two hands but no arms or legs?",
+        "answer": "Clock" },
+  "2": {
+        "question": "What type of cheese is made backwards?",
+        "answer": "Edam" },
+  "3": {
+        "question": "Which month has 28 days?",
+        "answer": "All" },
+  "4": {
+        "question": "How many letters are there in the alphabet?",
+        "answer": "Eleven" },
+  "5": {
+        "question": "What is so delicate that saying its name breaks it?",
+        "answer": "Silence" },
+  "6": {
+        "question": "They come out at night without being called, and are lost in the day without being stolen. What are they?",
+        "answer": "Stars" },
+  "7": {
+        "question": "If you threw a White stone into the Red Sea, what would it become?",
+        "answer": "Wet" },
+  "8": {
+        "question": "What invention lets you look right through a wall?",
+        "answer": "A window" },
+  "9": {
+        "question": "What has four legs, but can’t walk?",
+        "answer": "A table" },
+  "10": {
+          "question": "Which word in the dictionary is spelled incorrectly?",
+          "answer": "Incorrectly" },
+  "11": {
+          "question": "Why are teddy bears never hungry?",
+          "answer": "Because they are stuffed" },
+  "12": {
+          "question": "What has many rings, but no fingers?",
+          "answer": "A telephone" },
+  "13": {
+          "question": "What goes through towns and over hills but never moves?",
+          "answer": "A road" },
+  "14": {
+          "question": "If two is company and three is a crowd, what are four and five?",
+          "answer": "Nine" },
+  "15": {
+          "question": "I do not have wings, but I can fly. I don’t have eyes, but I will cry! What am I?",
+          "answer": "A cloud" },
+  "16": {
+          "question": "I do not speak, cannot hear or speak anything, but I will always tell the truth. What am I?",
+          "answer": "A mirror" },
+  "17": {
+          "question": "I have no life, but I can die, what am I?",
+          "answer": "A battery" },
+  "18": {
+          "question": "People buy me to eat, but never eat me. What am I?",
+          "answer": "A plate" }
+}
