@@ -71,23 +71,25 @@ class TestRun(unittest.TestCase):
         self.assertIn(form_id, html_txt)    
 
 
-    # def test_read_riddlesjson(self):
-    #     """
-    #     read_riddles function reads riddles correctly
-    #     """
-    #     riddles_to_test = {
-    #         '5': {
-    #           'question': 'What is so delicate that saying its name breaks it?',
-    #           'answer': 'Silence'},
-    #         '10': {
-    #           'question': 'Which word in the dictionary is spelled incorrectly?',
-    #           'answer': 'Incorrectly'}}
-    #     riddles_function = run.read_riddlesjson()
-    #     for riddle in riddles_function:
-    #         if riddle['riddle_id'] == '5':
-    #             self.assertEqual(riddle['riddle'], riddles_to_test[0]['riddle'])
-    #         if riddle['riddle_id'] == '10':
-    #             self.assertEqual(riddle['riddle'], riddles_to_test[1]['riddle'])
+    def test_read_riddlesjson(self):
+        """
+        read_riddles function reads riddles correctly
+        """
+        riddles_to_test = {
+            '5': {
+              'question': 'What is so delicate that saying its name breaks it?',
+              'answer': 'Silence'},
+            '10': {
+              'question': 'Which word in the dictionary is spelled incorrectly?',
+              'answer': 'Incorrectly'}}
+        riddles = run.read_riddlesjson()
+        for riddle in riddles:
+            if riddle == '5':
+                self.assertEqual(riddles[riddle]['question'], 
+                                 riddles_to_test['5']['question'])
+            if riddle == '10':
+                self.assertEqual(riddles[riddle]['question'], 
+                                 riddles_to_test['10']['question'])
 
 
     # def test_next_riddle(self):

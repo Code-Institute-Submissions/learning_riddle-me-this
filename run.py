@@ -39,7 +39,7 @@ print('after getting info from JSON file', riddles['1'])
 #     return riddle, riddle['riddle_id']
 
 
-def check_is_correct(usr_answer):
+def check_is_correct(usr_answer, riddle_id):
     print('check_is_correct', riddle_id)
     right_answer = riddles[riddle_id]['answer'].lower()
     is_correct = (True if usr_answer == right_answer else False)
@@ -90,7 +90,7 @@ def render_riddle(username, riddle_id):
     
     if request.method == 'POST':
         usr_answer = request.form['answer'].lower()
-        is_correct = check_is_correct(usr_answer)
+        is_correct = check_is_correct(usr_answer, riddle_id)
     
         if not is_correct:
             print('not correct render_riddle', riddle_id)
@@ -101,6 +101,7 @@ def render_riddle(username, riddle_id):
             print('start correct render_riddle', riddle_id)
             #riddle, riddle_id = next_riddle()
             #print('after calling next_riddle', riddle)
+            riddle_id = str(int(riddle_id) + 1)
             return redirect(url_for('render_riddle', 
                                     username=username, 
                                     riddle_id=riddle_id))
