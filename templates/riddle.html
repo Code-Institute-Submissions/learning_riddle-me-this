@@ -10,5 +10,13 @@
             <input type="text" id="answer" name="answer"/>
             <button>Submit!</button>
         </form>
+        <br>
+        <p>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {{ messages[0] }}
+            {% endif %}
+            {% endwith %}
+        </p>
     </body>
 </html>
