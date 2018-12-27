@@ -25,7 +25,6 @@ riddles = read_riddlesjson()
 print('after getting info from JSON file', riddles['1'])
 
 
-
 # def get_riddle():
 #     print('get_riddle', riddle)
 #     return riddle, riddle['riddle_id']
@@ -106,6 +105,10 @@ def render_riddle(username, riddle_id):
     print('before last return function in render_riddle', riddle_id)
     return render_template('riddle.html', 
                             riddle_text=riddles[riddle_id]['question'])
+
+@app.route('/leaderboard')
+def render_leaderboard():
+    return 'leaderboard'
 
 
 if __name__ == '__main__':

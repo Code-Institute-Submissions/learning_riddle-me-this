@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Riddle Me This!</title>
+    </head>
+    <body>
+        <h2>Leaderboard</h2>
+        <br>
+        {% if scores %}
+        <ul>
+            {% for score in scores %}
+                <li>{{loop.index }} - {{ score }}</li>
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>No scores available</p>
+        {% endif %}
+    </body>
+</html>

@@ -110,7 +110,19 @@ class TestRun(unittest.TestCase):
         url_page = url + '/' + usr + '/' + riddle_id
         html_txt = requests.get(url_page, headers=headers).text
         self.assertIn(msg, html_txt)
+
+
+    def test_leaderboardhtml_get(self):
+        """
+        Renders index.html when GET request 
+        """
+        url = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
+        form_id = 'leaderboard' #'id="username"'
+        headers = {'Connection':'close'}
+        html_txt = requests.get(url, headers=headers).text
+        self.assertIn(form_id, html_txt)
         
+
     # def test_next_riddle(self):
     #     """
     #     test get_riddle function yields riddles
@@ -121,5 +133,5 @@ class TestRun(unittest.TestCase):
     #     for _ in range(0, 3):
     #         riddl, riddl_id = run.next_riddle()
     #     self.assertEqual(riddl['riddle_id'], '9')
-        
-            
+
+
