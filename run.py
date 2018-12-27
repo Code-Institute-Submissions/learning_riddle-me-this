@@ -85,7 +85,8 @@ def render_riddle(username, riddle_id):
     """
     print('start render_riddle', riddle_id)
     
-    if int(riddle_id) > len(riddles): return "You did all riddles"
+    if int(riddle_id) > len(riddles): 
+        return redirect(url_for('render_leaderboard'))
     
     if request.method == 'POST':
         usr_answer = request.form['answer'].lower()
@@ -106,9 +107,10 @@ def render_riddle(username, riddle_id):
     return render_template('riddle.html', 
                             riddle_text=riddles[riddle_id]['question'])
 
+
 @app.route('/leaderboard')
 def render_leaderboard():
-    return 'leaderboard'
+    return render_template('leaderboard.html')
 
 
 if __name__ == '__main__':

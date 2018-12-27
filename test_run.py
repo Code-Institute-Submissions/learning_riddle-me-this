@@ -94,12 +94,11 @@ class TestRun(unittest.TestCase):
     
     def test_riddles_completed(self):
         """
-        Message informs users when all riddles are completed 
+        Redirect to Leaderboard when all riddles are completed 
         """
         riddles = run.read_riddlesjson()
         riddle_id = str(len(riddles) + 1)
         
-        msg = "You did all riddles"
         url = 'https://riddle-me-this-joseppujol.c9users.io/riddle'
         usr = 'usr1'
         headers = {'user-agent': 'Headless', 
@@ -107,9 +106,10 @@ class TestRun(unittest.TestCase):
                    'Connection':'close'}
         cookies = {'c9.live.user.click-through': 'ok'}
         
+        no_scores = 'No scores available'
         url_page = url + '/' + usr + '/' + riddle_id
         html_txt = requests.get(url_page, headers=headers).text
-        self.assertIn(msg, html_txt)
+        self.assertIn(no_scores, html_txt)
 
 
     def test_leaderboardhtml_get(self):
@@ -117,21 +117,12 @@ class TestRun(unittest.TestCase):
         Renders index.html when GET request 
         """
         url = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
-        form_id = 'leaderboard' #'id="username"'
+        no_scores = 'No scores available' #'leaderboard' 'id="username"'
         headers = {'Connection':'close'}
         html_txt = requests.get(url, headers=headers).text
-        self.assertIn(form_id, html_txt)
+        self.assertIn(no_scores, html_txt)
         
 
-    # def test_next_riddle(self):
-    #     """
-    #     test get_riddle function yields riddles
-    #     """
-    #     for _ in range(0, 5):
-    #         riddl, riddl_id = run.next_riddle()
-    #     self.assertEqual(riddl['riddle_id'], '6')
-    #     for _ in range(0, 3):
-    #         riddl, riddl_id = run.next_riddle()
-    #     self.assertEqual(riddl['riddle_id'], '9')
+
 
 
