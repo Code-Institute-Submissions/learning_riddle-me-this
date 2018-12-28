@@ -16,7 +16,7 @@ class TestRun(unittest.TestCase):
         """
         Render index.html when GET request 
         """
-        url = 'https://riddle-me-this-joseppujol.c9users.io/'
+        url = 'https://riddle-me-this-joseppujol.c9users.io'
         form_id = 'id="username"'
         headers = {'Connection':'close'}
         html_txt = requests.get(url, headers=headers).text
@@ -27,9 +27,10 @@ class TestRun(unittest.TestCase):
         """
         Returns the username when POST request
         """
-        url = 'https://riddle-me-this-joseppujol.c9users.io/'
+        url = 'https://riddle-me-this-joseppujol.c9users.io'
         usrname = 'theUser'
         data = {'username': usrname}
+        
         headers = {'user-agent': 'Headless', 
                    'origin': 'http://riddle-me-this-joseppujol.c9users.io',
                    'Connection':'close'}
@@ -43,9 +44,10 @@ class TestRun(unittest.TestCase):
         """
         Usernames added correctly and are unique
         """
-        url = 'https://riddle-me-this-joseppujol.c9users.io/'
+        url = 'https://riddle-me-this-joseppujol.c9users.io'
         usrnames_test = ['usr1', 'usr2', 'usr3', 'usr1']
         unique_usrnames = ['usr1', 'usr2', 'usr3',]
+        
         headers = {'user-agent': 'Headless', 
                    'origin': 'http://riddle-me-this-joseppujol.c9users.io',
                    'Connection':'close'}
@@ -57,7 +59,8 @@ class TestRun(unittest.TestCase):
                               data=data,
                               headers=headers, 
                               cookies=cookies)
-        html_txt = requests.get(url + 'print_users', headers=headers).text
+                              
+        html_txt = requests.get(url + '/print_users', headers=headers).text
         usrnames_html = [itm for itm in html_txt.split(' ') if itm != '']
         self.assertEqual(usrnames_html, unique_usrnames)
     
@@ -104,7 +107,7 @@ class TestRun(unittest.TestCase):
         riddles = run.read_riddlesjson()
         riddle_id = str(len(riddles) + 1)
         
-        url = 'https://riddle-me-this-joseppujol.c9users.io/riddle'
+        url_rd = 'https://riddle-me-this-joseppujol.c9users.io/riddle'
         usr = 'usr1'
         no_scores = 'No scores available'
         
@@ -113,17 +116,16 @@ class TestRun(unittest.TestCase):
                    'Connection':'close'}
         cookies = {'c9.live.user.click-through': 'ok'}
         
-
-        url_page = url + '/' + usr + '/' + riddle_id
+        url_page = url_rd + '/' + usr + '/' + riddle_id
         html_txt = requests.get(url_page, headers=headers).text
         self.assertIn(no_scores, html_txt)
-
-
+    
+    
     def test_leaderboardhtml_get(self):
         """
         Renders index.html when GET request 
         """
-        url = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
+        url_lb = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
         no_scores = 'No scores available'
         
         headers = {'user-agent': 'Headless', 
@@ -131,21 +133,41 @@ class TestRun(unittest.TestCase):
                    'Connection':'close'}
         cookies = {'c9.live.user.click-through': 'ok'}
         
-        html_txt = requests.get(url, headers=headers).text
+        html_txt = requests.get(url_lb, headers=headers).text
         self.assertIn(no_scores, html_txt)
         
-
+        
     def test_update_scores(self):
         """
         Scores are updated correctly
         """
-        url = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
-        no_scores = 'No scores available'
+        url = 'https://riddle-me-this-joseppujol.c9users.io'
+        usr = 'usr1_lb'
         
         headers = {'user-agent': 'Headless', 
                    'origin': 'http://riddle-me-this-joseppujol.c9users.io',
                    'Connection':'close'}
         cookies = {'c9.live.user.click-through': 'ok'}
         
-
-
+        # Create user
+        data = {'username': usr}
+        requests.post(url, data=data, headers=headers, cookies=cookies)
+        
+        # Two incorrect answers
+        data = {'answer': ''}
+        url_riddle = url + '/riddle/' + usr + '/1'
+        for _ in range(0, 2):
+            requests.post(url_riddle, 
+                          data=data, 
+                          headers=headers, 
+                          cookies=cookies) 
+        
+        # One correct answer
+        data = {'answer': 'clock'}
+        requests.post(url_riddle, data=data, headers=headers, cookies=cookies)
+                
+        url_ld = url + '/leaderboard'
+        r = requests.get(url_ld, data=data, headers=headers, cookies=cookies)
+        html_txt = r.text
+        correct_score = 'usr1_lb : 3'
+        self.assertIn(correct_score, html_txt)

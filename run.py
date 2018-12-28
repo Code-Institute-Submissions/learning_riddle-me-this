@@ -13,6 +13,8 @@ app.secret_key = 'some_secret'
 usernames = []
 riddles = []
 scores = {}
+points_right_ans = 5
+points_wrong_ans = -1
 riddle_id = '1'
 
 
@@ -80,19 +82,19 @@ def render_riddle(username, riddle_id):
         is_correct = check_is_correct(usr_answer, riddle_id)
     
         if not is_correct:
-            scores = update_scores(username, -1)
+            scores = update_scores(username, points_wrong_ans)
             print('not correct render_riddle', riddle_id, scores)
             flash('The answer is not correct, try again!')
             return render_template('riddle.html', 
                                     riddle_text=riddles[riddle_id]['question'])
         if is_correct:
-            scores = update_scores(username, 5)
+            scores = update_scores(username, points_right_ans)
             print('start correct render_riddle', riddle_id, scores)
             riddle_id = str(int(riddle_id) + 1)
             return redirect(url_for('render_riddle', 
                                     username=username, 
                                     riddle_id=riddle_id))
-    print('before last return function in render_riddle', riddle_id)#, scores)
+    print('before last return function in render_riddle', riddle_id)
     return render_template('riddle.html', 
                             riddle_text=riddles[riddle_id]['question'])
 
