@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from flask import flash
 from flask import Flask
 from flask import redirect
@@ -54,11 +55,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/<username>')
-def user(username):
-    return username
-
-
+# For testing purposes
 @app.route('/print_users')
 def print_users():
     all_users = ''
@@ -101,7 +98,10 @@ def render_riddle(username, riddle_id):
 
 @app.route('/leaderboard')
 def render_leaderboard():
-    return render_template('leaderboard.html', scores=scores)
+    sorted_scores = OrderedDict(sorted(scores.items(), 
+                                       key=lambda t: t[1], 
+                                       reverse=True))
+    return render_template('leaderboard.html', scores=sorted_scores)
 
 
 if __name__ == '__main__':
