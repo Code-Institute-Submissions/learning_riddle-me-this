@@ -11,9 +11,8 @@ app = Flask(__name__)
 app.secret_key = 'some_secret'
 
 usernames = []
-user_answers = {}
 riddles = []
-answered_riddles = []
+scores = {}
 riddle_id = '1'
 
 
@@ -22,20 +21,6 @@ def read_riddlesjson():
         riddles = json.load(f)
     return riddles
 riddles = read_riddlesjson()
-print('after getting info from JSON file', riddles['1'])
-
-
-# def get_riddle():
-#     print('get_riddle', riddle)
-#     return riddle, riddle['riddle_id']
-
-
-# def next_riddle():
-#     print('getting next riddle')
-#     if riddles:
-#         riddle = riddles.pop(0)
-#     print('inside next_riddle', riddle)
-#     return riddle, riddle['riddle_id']
 
 
 def check_is_correct(usr_answer, riddle_id):
@@ -45,9 +30,10 @@ def check_is_correct(usr_answer, riddle_id):
     return is_correct
     
 
-def store_answered_riddles(riddle_id, answer):
-    answered_riddles.append({'riddle_id': riddle_id, 'answer': answer})
-    return answered_riddles
+def update_scores(user, score):
+    if scores.get(user, 'no_usr') == 'no_usr': scores[user] = 0 
+    scores[user] = scores[user] + score
+    return scores
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -60,8 +46,9 @@ def index():
         if username not in usernames:
             usernames.append(username)
             print('\n', username, '\n')
-        return redirect(url_for('render_riddle',   #  url_for ???
-                                username=username, riddle_id=riddle_id))
+        return redirect(url_for('render_riddle',
+                                username=username, 
+                                riddle_id=riddle_id))
     return render_template('index.html')
 
 
@@ -93,24 +80,26 @@ def render_riddle(username, riddle_id):
         is_correct = check_is_correct(usr_answer, riddle_id)
     
         if not is_correct:
-            print('not correct render_riddle', riddle_id)
+            scores = update_scores(username, -1)
+            print('not correct render_riddle', riddle_id, scores)
             flash('The answer is not correct, try again!')
             return render_template('riddle.html', 
                                     riddle_text=riddles[riddle_id]['question'])
         if is_correct:
-            print('start correct render_riddle', riddle_id)
+            scores = update_scores(username, 5)
+            print('start correct render_riddle', riddle_id, scores)
             riddle_id = str(int(riddle_id) + 1)
             return redirect(url_for('render_riddle', 
                                     username=username, 
                                     riddle_id=riddle_id))
-    print('before last return function in render_riddle', riddle_id)
+    print('before last return function in render_riddle', riddle_id)#, scores)
     return render_template('riddle.html', 
                             riddle_text=riddles[riddle_id]['question'])
 
 
 @app.route('/leaderboard')
 def render_leaderboard():
-    return render_template('leaderboard.html')
+    return render_template('leaderboard.html', scores=scores)
 
 
 if __name__ == '__main__':

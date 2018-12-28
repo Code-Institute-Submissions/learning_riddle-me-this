@@ -9,12 +9,12 @@ import unittest
 
 class TestRun(unittest.TestCase):
     """
-    Our test suite for riddle-me-this, run.py file
+    Test suite for riddle-me-this, run.py file
     """
     
     def test_indexhtml_get(self):
         """
-        Renders index.html when GET request 
+        Render index.html when GET request 
         """
         url = 'https://riddle-me-this-joseppujol.c9users.io/'
         form_id = 'id="username"'
@@ -29,9 +29,14 @@ class TestRun(unittest.TestCase):
         """
         url = 'https://riddle-me-this-joseppujol.c9users.io/'
         usrname = 'theUser'
-        headers = {'Connection':'close'}
-        html_txt = requests.get(url + usrname, headers=headers).text
-        self.assertIn(usrname, html_txt)
+        data = {'username': usrname}
+        headers = {'user-agent': 'Headless', 
+                   'origin': 'http://riddle-me-this-joseppujol.c9users.io',
+                   'Connection':'close'}
+        cookies = {'c9.live.user.click-through': 'ok'}
+        
+        r = requests.post(url, data=data, headers=headers, cookies=cookies)
+        self.assertIn(usrname, r.url)
     
     
     def test_add_usernames_only_unique(self):
@@ -48,11 +53,11 @@ class TestRun(unittest.TestCase):
         
         for user in usrnames_test:
             data = {'username': user}
-            r = requests.post(url, data=data,
+            r = requests.post(url, 
+                              data=data,
                               headers=headers, 
                               cookies=cookies)
-        html_txt = requests.get(url + 'print_users', 
-                                headers=headers).text
+        html_txt = requests.get(url + 'print_users', headers=headers).text
         usrnames_html = [itm for itm in html_txt.split(' ') if itm != '']
         self.assertEqual(usrnames_html, unique_usrnames)
     
@@ -101,12 +106,14 @@ class TestRun(unittest.TestCase):
         
         url = 'https://riddle-me-this-joseppujol.c9users.io/riddle'
         usr = 'usr1'
+        no_scores = 'No scores available'
+        
         headers = {'user-agent': 'Headless', 
                    'origin': 'http://riddle-me-this-joseppujol.c9users.io',
                    'Connection':'close'}
         cookies = {'c9.live.user.click-through': 'ok'}
         
-        no_scores = 'No scores available'
+
         url_page = url + '/' + usr + '/' + riddle_id
         html_txt = requests.get(url_page, headers=headers).text
         self.assertIn(no_scores, html_txt)
@@ -117,12 +124,28 @@ class TestRun(unittest.TestCase):
         Renders index.html when GET request 
         """
         url = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
-        no_scores = 'No scores available' #'leaderboard' 'id="username"'
-        headers = {'Connection':'close'}
+        no_scores = 'No scores available'
+        
+        headers = {'user-agent': 'Headless', 
+                   'origin': 'http://riddle-me-this-joseppujol.c9users.io',
+                   'Connection':'close'}
+        cookies = {'c9.live.user.click-through': 'ok'}
+        
         html_txt = requests.get(url, headers=headers).text
         self.assertIn(no_scores, html_txt)
         
 
-
+    def test_update_scores(self):
+        """
+        Scores are updated correctly
+        """
+        url = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
+        no_scores = 'No scores available'
+        
+        headers = {'user-agent': 'Headless', 
+                   'origin': 'http://riddle-me-this-joseppujol.c9users.io',
+                   'Connection':'close'}
+        cookies = {'c9.live.user.click-through': 'ok'}
+        
 
 
