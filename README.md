@@ -15,10 +15,10 @@ Minimal interface to allow the following features.
 - leaderboard page with your rank, when more than one user, and the points achieved
 
 ## Features left to implement
-Some styling on the different web pages.
-System that stores the riddle in which the user is and don't allow the user to skip a riddle without being unnoticed.
-System to record when a user decides to skip a riddle.
-Update punctuation system to include when a user skips a riddle.
+- Some styling on the different web pages.
+- System that stores the riddle in which the user is and don't allow the user to skip a riddle without being unnoticed.
+- System to record when a user decides to skip a riddle.
+- Update punctuation system to include when a user skips a riddle.
 
 ## Technologies used
 - Python version 3 with following main modules: Flask, Requests and unittest 
