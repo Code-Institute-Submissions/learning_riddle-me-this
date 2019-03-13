@@ -2,10 +2,6 @@ import requests
 import run
 import unittest
 
-# TODO
-# TOREVIEW 
-# should we use index function??
-# is it ok to have variables in a test function?
 
 class TestRun(unittest.TestCase):
     """
@@ -123,7 +119,7 @@ class TestRun(unittest.TestCase):
     
     def test_leaderboardhtml_get(self):
         """
-        Renders index.html when GET request 
+        Renders leaderboard.html when GET request 
         """
         url_lb = 'https://riddle-me-this-joseppujol.c9users.io/leaderboard'
         no_scores = 'No scores available'

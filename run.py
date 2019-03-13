@@ -23,11 +23,11 @@ def read_riddlesjson():
     with open('./data/riddles.json', 'r', encoding='utf-8') as f:
         riddles = json.load(f)
     return riddles
+
 riddles = read_riddlesjson()
 
 
 def check_is_correct(usr_answer, riddle_id):
-    print('check_is_correct', riddle_id)
     right_answer = riddles[riddle_id]['answer'].lower()
     is_correct = (True if usr_answer == right_answer else False)
     return is_correct
@@ -48,7 +48,6 @@ def index():
         username = request.form['username']
         if username not in usernames:
             usernames.append(username)
-            print('\n', username, '\n')
         return redirect(url_for('render_riddle',
                                 username=username, 
                                 riddle_id=riddle_id))
@@ -69,7 +68,6 @@ def render_riddle(username, riddle_id):
     """
     Display a riddle and a text box to answer it.
     """
-    print('start render_riddle', riddle_id)
     
     if int(riddle_id) > len(riddles): 
         return redirect(url_for('render_leaderboard'))
@@ -80,13 +78,11 @@ def render_riddle(username, riddle_id):
     
         if not is_correct:
             scores = update_scores(username, points_wrong_ans)
-            print('not correct render_riddle', riddle_id, scores)
             flash('The answer is not correct, try again!')
             return render_template('riddle.html', 
                                     riddle_text=riddles[riddle_id]['question'])
         if is_correct:
             scores = update_scores(username, points_right_ans)
-            print('start correct render_riddle', riddle_id, scores)
             riddle_id = str(int(riddle_id) + 1)
             return redirect(url_for('render_riddle', 
                                     username=username, 
@@ -104,8 +100,8 @@ def render_leaderboard():
     return render_template('leaderboard.html', scores=sorted_scores)
 
 
+
 if __name__ == '__main__':
-    print('\n\n CALLING FUNCTION app.run\n\n')
     app.run(host=os.getenv('IP', '0.0.0.0'),
             port=int(os.getenv('PORT', '8080')),           
             debug=True)
