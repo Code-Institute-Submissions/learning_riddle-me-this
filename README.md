@@ -1,7 +1,7 @@
 # Riddle-me-this
 
 This repo contains a solution code for the milestone project of the *Practical Pyton* module.
-https://josep-pujol.github.io/learning_riddle-me-this/
+https://riddle-me--this.herokuapp.com/
 
 ## UX
 Minimal interface to allow the following features.
